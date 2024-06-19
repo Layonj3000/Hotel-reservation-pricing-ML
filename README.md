@@ -1,85 +1,100 @@
-# Avaliação Sprints 4 e 5 - Programa de Bolsas Compass UOL e AWS - UFES/UFLA abril/2024
+# Avaliação Sprint 4-5 -> Programa de Bolsas Compass UOL / AWS - ABRIL/2024
 
-Avaliação das quarta e quinta sprints do programa de bolsas Compass UOL para formação em machine learning para AWS.
+<p align="center">
+ <a href="#-descrição">Descrição</a>  •
+ <a href="#-funcionalidades">Funcionalidades</a>  • 
+ <a href="#-como-usar-a-aplicação">Como usar</a>  • 
+ <a href="#-desenvolvimento">Desenvolvimento</a>  • 
+ <a href="#-execução">Execução</a>  • 
+  <a href="#-arquitetura-aws">Arquitetura AWS</a>  •
+ <a href="#-dificuldades">Dificuldades</a>  •
+ <a href="#-autores">Autores</a> 
+</p>
 
-***
+## 📜 Descrição
 
-## Execução
+Projeto tem como objetivo classificar reservas de hotel com base na faixa de preço por quarto utilizando AWS SageMaker para treinamento de modelo, AWS RDS para armazenamento de dados, e FastAPI para exposição de uma API de predição. O projeto é containerizado utilizando Docker e orquestrado com Docker Compose.
 
-1 - Treinar o modelo utilizando SageMaker, a partir do dataset armazenado no AWS RDS, conforme instruções a seguir, e fazer o salvamento do modelo para o S3.
+## ✅ Funcionalidades
 
-2 - Criar um ambiente Docker no AWS para implementar a API descrita no próximo passo.
+Este projeto possui diversas funcionalidades importantes, que permitem a classificação de reservas de hotel com base em faixas de preço por quarto, utilizando um modelo de machine learning treinado no AWS SageMaker. Aqui estão as principais funcionalidades:
 
-3 - Desenvolver um serviço em python (API), utilizando algum framework http (Flask, FastApi...), que deve carregar o modelo treinado do S3 e expor um endpoint para realizar a inferência. O endpoint deve ser um POST com uma rota /api/v1/predict e receber um JSON no corpo da requisição seguindo o exemplo:
+**1. Carregamento e Preparação dos Dados**
 
-```json
-{
-    "no_of_adults": 3,
-    "no_of_children": 3,
-    "type_of_meal_plan": "example"
-    ...
-}
-```
+- Notebooks Jupyter: Utilizamos notebooks para carregar, explorar e preparar os dados. Isso inclui limpeza dos dados, criação de novas features e armazenamento dos dados processados no AWS S3 e AWS RDS.
+- Interação com RDS: Conexão ao banco de dados relacional (RDS) da AWS para executar consultas SQL e manipular os dados diretamente.
 
-A resposta deve seguir este formato:
+**2. Treinamento do Modelo**
 
-```json
-{
-  "result": 1
-}
-```
+- AWS SageMaker: Utilizamos o AWS SageMaker para treinar um modelo de machine learning. O modelo é treinado utilizando dados armazenados no S3 e a configuração do treinamento é feita nos notebooks.
+- Modelo XGBoost: Escolha do algoritmo XGBoost devido à sua eficiência e alta performance em tarefas de classificação.
 
-4 - Realizar o Deploy do serviço na AWS.
+**3. Desenvolvimento da API**
 
-![Esquema mostrando a cloud aws com usuários acessando api gateway esta recebendo o modelo do bucket s3. Sagemaker ligado ao bucket para fornecer o modelo e ao RDS para ler e atualizar o dataset.](assets/sprint4-5.jpg)
+**FastAPI**
+- Desenvolvemos uma API utilizando o framework FastAPI, que oferece uma interface RESTful para realizar predições. A API é configurada para carregar o modelo treinado a partir do S3.
 
-***
+**Endpoint**
+- /api/v1/predict: Endpoint POST que recebe um JSON com os dados da reserva e retorna a classificação (faixa de preço).
+- /: Endpoint GET que retorna uma mensagem de boas-vindas.
 
-## Construção do Modelo
 
-O Hotel Reservations Dataset (<https://www.kaggle.com/datasets/ahsan81/hotel-reservations-classification-dataset>) é uma base de dados que trata de informações sobre reservas em hotéis.
+## 🧑‍💻 Como usar a Aplicação
 
-Iremos utilizar esse dataset para classificar os dados por faixa de preços de acordo com as informações encontradas em suas colunas (usem o que vocês acharem que faz sentido para análise).
 
-**Queremos saber como cada reserva (cada linha do dataset) se encaixa em qual faixa de preço.** Para isso, a equipe **deve criar uma nova coluna** chamada **label_avg_price_per_room**, que servirá como label para nossa classificação. Essa nova coluna deverá conter número 1 quando a coluna *avg_price_per_room* tiver valor menor ou igual a 85, número 2 quando a coluna *avg_price_per_room* tiver valor maior que 85 e menor que 115 e o valor 3 se a coluna *avg_price_per_room* tiver valor maior ou igual a 115.
+## 🚀 Desenvolvimento
+**📂 Estrutura de pastas**
 
-Vocês devem então **excluir a coluna avg_price_per_room** e criar um modelo que consiga classificar os dados com base na nova coluna *label_avg_price_per_room*.
+ ```
+├── src
+│   ├── Api
+│   │   ├── Controllers                         
+│   │   │   ├── home_controller.py                # Controlador para a rota principal da API, respondendo com uma mensagem de boas-vindas.
+│   │   │   └── prediction_controller.py          # Controlador para a rota de predição, gerenciando a lógica de receber dados de entrada e retornar a predição.
+│   │   ├── Models
+│   │   │   └── prediction_model.py               # Modelo de dados utilizado na API, definindo a estrutura dos dados de entrada para a predição.
+│   │   ├── Service                                
+│   │   │   └── prediction_service                # Serviço para carregar o modelo treinado do S3 e realizar predições.
+│   │   ├── main.py                               # Ponto de entrada da aplicação FastAPI
+│   │   ├── requeriments.txt                      # Lista de dependências do Python.
+│   │   └── Dockerfile                            # Configuração do Docker
+│   ├── Notebooks
+│   │   ├── RDS                             
+│   │   │   └── notebooks.ipynb                   # Notebooks Jupyter para desenvolvimento e treinamento dos dados
+│   │   ├── AWS
+│   │   │   └── rds.ipynb                         # Notebook para interação com RDS, incluindo conexão ao banco de dados, execução de consultas SQL e carregamento dos dados.
+│   │   └── requeriments.txt                      # Lista de dependências do Python.
 
-Armazene o dataset original e alterado no AWS RDS. O modelo treinado deverá ser armazenado no S3.
 
-Será necessário explicar o porquê da escolha do modelo, como ele funciona. Também será avaliada a taxa de assertividade do modelo.
 
-![Fluxograma para ilustração da descrição do tratamento do modelo.](assets/dataset_schema.png)
+ ```
+**⚙️ Tecnologias Utilizadas**
+- Python: Linguagem de programação principal.
+- FastAPI: Framework para desenvolvimento da API.
+- AWS SageMaker: Serviço da AWS para treinamento e deploy de modelos de machine learning.
+- AWS S3: Armazenamento de dados e modelos.
+- AWS RDS: Banco de dados relacional para armazenamento dos dados.
+- Docker: Ferramenta de containerização.
+- Docker Compose: Orquestração de containers.
 
-***
+## 💻 Execução
 
-## O que será avaliado
+**Pré-requisitos** : 
+- `Conta na AWS com permissões para SageMaker, S3, e RDS`
+- `Docker e Docker Compose`
+- `Python 3.9 ou superior`
+- `Jupyter Notebook`
 
-- Projeto em produção na AWS;
-- Código Python utilizado no Sagemaker;
-- Código Python usado na infererência (API);
-- Código do Dockerfile e/ou docker-compose;
-- Sobre o modelo:
-  - Divisão dos dados para treino e teste;
-  - Taxa de assertividade aceitável (se o modelo está classificando corretamente);
-  - Entendimento da equipe sobre o modelo utilizado (saber explicar o que foi feito);
-  - Mostrar resposta do modelo para classificação;
-- Organização geral do código fonte:
-  - Estrutura de pastas;
-  - Divisão de responsabilidades em arquivos/pastas distintos;
-  - Otimização do código fonte (evitar duplicações de código);
-- Objetividade do README.md.
 
-***
+## 🌐 Arquitetura AWS
+A arquitetura AWS deste projeto integra vários serviços da AWS para criar uma solução completa de machine learning e predição. A utilização de SageMaker, S3, RDS, FastAPI, Docker e ECS/EKS/EC2 permite que a aplicação seja escalável, eficiente e fácil de gerenciar. Cada componente foi escolhido para otimizar o desempenho e a escalabilidade, garantindo que o sistema possa lidar com grandes volumes de dados e fornecer predições em tempo real.
 
-## Entrega
 
-- **O trabalho deve ser feito em grupos de três ou quatro pessoas**;
-  - **Evitar repetições de grupos de sprints anteriores**;
-- Criar uma branch no repositório com o formato grupo-número (Exemplo: grupo-1);
-- Subir o trabalho na branch com um README.md:
-  - documentar detalhes sobre como a avaliação foi desenvolvida;
-  - relatar dificuldades conhecidas;
-  - descrever como utilizar o sistema;
-- 🔨 Disponibilizar o código fonte desenvolvido (Sugestão: pasta `src`);
-- O prazo de entrega é até às 14h do dia 24/06/2024 no repositório do github (https://github.com/Compass-pb-aws-2024-ABRIL/sprints-4-5-pb-aws-abril).
+
+## 🔐 Dificuldades
+
+## 👤 Autores
+- [Gabriel Venancio de Avelar](https://github.com/GabrielAvelarbr) | Email: 99gabrielavelar@gmail.com |
+- [Layon Jose Pedrosa dos Reis](https://github.com/Layonj3000) | Email: layonjp300@gmail.com |
+- [Leonardo Loureiro de Almeida](https://github.com/lloureiro2) | Email: leoloureiro44@gmail.com |
+
