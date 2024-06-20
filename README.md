@@ -13,7 +13,7 @@
 
 ## 📜 Descrição
 
-Projeto tem como objetivo classificar reservas de hotel com base na faixa de preço por quarto utilizando AWS SageMaker para treinamento de modelo, AWS RDS para armazenamento de dados, e FastAPI para exposição de uma API de predição. O projeto é containerizado utilizando Docker e orquestrado com Docker Compose.
+Projeto tem como objetivo classificar reservas de hotel com base na faixa de preço por quarto utilizando AWS SageMaker para treinamento de modelo, AWS RDS para armazenamento de dados, e FastAPI para exposição de uma API de predição. O projeto é containerizado utilizando Docker.
 
 ## ✅ Funcionalidades
 
@@ -27,12 +27,20 @@ Este projeto possui diversas funcionalidades importantes, que permitem a classif
 **2. Treinamento do Modelo**
 
 - AWS SageMaker: Utilizamos o AWS SageMaker para treinar um modelo de machine learning. O modelo é treinado utilizando dados armazenados no S3 e a configuração do treinamento é feita nos notebooks.
-- Modelo XGBoost: Escolha do algoritmo XGBoost devido à sua eficiência e alta performance em tarefas de classificação.
+- Modelo Random Forest: Escolha do algoritmo Random Forest devido à sua robustez e alta performance em tarefas de classificação.
 
 **3. Desenvolvimento da API**
 
 **FastAPI**
 - Desenvolvemos uma API utilizando o framework FastAPI, que oferece uma interface RESTful para realizar predições. A API é configurada para carregar o modelo treinado a partir do S3.
+
+**4. Containerização**
+
+- Docker: Utilização do Docker para containerizar a aplicação, garantindo que o ambiente de execução seja consistente em diferentes máquinas.
+
+**5. Deploy na AWS**
+- EC2: A aplicação pode ser implantada na AWS usando Amazon ECS, EKS ou instâncias EC2. O uso de containers Docker facilita o deploy e a escalabilidade da aplicação.
+- AWS S3: O modelo treinado e os dados são armazenados no Amazon S3, permitindo fácil acesso e gerenciamento.
 
 **Endpoint**
 - /api/v1/predict: Endpoint POST que recebe um JSON com os dados da reserva e retorna a classificação (faixa de preço).
@@ -59,7 +67,7 @@ Este projeto possui diversas funcionalidades importantes, que permitem a classif
 │   │   ├── requeriments.txt                      # Lista de dependências do Python.
 │   │   └── Dockerfile                            # Configuração do Docker
 │   ├── Notebooks
-│   │   ├── RDS                             
+│   │   ├── Treinamento                             
 │   │   │   └── notebooks.ipynb                   # Notebooks Jupyter para desenvolvimento e treinamento dos dados
 │   │   ├── AWS
 │   │   │   └── rds.ipynb                         # Notebook para interação com RDS, incluindo conexão ao banco de dados, execução de consultas SQL e carregamento dos dados.
@@ -75,23 +83,25 @@ Este projeto possui diversas funcionalidades importantes, que permitem a classif
 - AWS S3: Armazenamento de dados e modelos.
 - AWS RDS: Banco de dados relacional para armazenamento dos dados.
 - Docker: Ferramenta de containerização.
-- Docker Compose: Orquestração de containers.
 
 ## 💻 Execução
 
 **Pré-requisitos** : 
 - `Conta na AWS com permissões para SageMaker, S3, e RDS`
-- `Docker e Docker Compose`
+- `Docker`
 - `Python 3.9 ou superior`
 - `Jupyter Notebook`
 
 
 ## 🌐 Arquitetura AWS
-A arquitetura AWS deste projeto integra vários serviços da AWS para criar uma solução completa de machine learning e predição. A utilização de SageMaker, S3, RDS, FastAPI, Docker e ECS/EKS/EC2 permite que a aplicação seja escalável, eficiente e fácil de gerenciar. Cada componente foi escolhido para otimizar o desempenho e a escalabilidade, garantindo que o sistema possa lidar com grandes volumes de dados e fornecer predições em tempo real.
+A arquitetura AWS deste projeto integra vários serviços da AWS para criar uma solução de machine learning e predição. A utilização de SageMaker, S3, RDS, FastAPI, Docker e EC2 permite que a aplicação seja escalável, eficiente e fácil de gerenciar. Cada componente foi escolhido para otimizar o desempenho e a escalabilidade, garantindo que o sistema possa lidar com grandes volumes de dados e fornecer predições em tempo real.
 
 
 
 ## 🔐 Dificuldades
+
+- Tivemos uma dificuldade relacionada ao treinamento do sagemaker, encontramos um erro ao tentar ajustar o estimador em apenas uma das maquinas locais utilizadas e que gerou um bom tempo para o entedimento do mesmo e a descoberta para a solução.
+
 
 ## 👤 Autores
 - [Gabriel Venancio de Avelar](https://github.com/GabrielAvelarbr) | Email: 99gabrielavelar@gmail.com |
