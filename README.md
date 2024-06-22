@@ -5,7 +5,7 @@
  <a href="#-funcionalidades">Funcionalidades</a>  • 
  <a href="#-como-usar-a-aplicação">Como usar</a>  • 
  <a href="#-desenvolvimento">Desenvolvimento</a>  • 
- <a href="#-execução">Execução</a>  • 
+ <a href="#-execução-local">Execução</a>  • 
   <a href="#-arquitetura-aws">Arquitetura AWS</a>  •
  <a href="#-dificuldades">Dificuldades</a>  •
  <a href="#-autores">Autores</a> 
@@ -49,6 +49,11 @@ Este projeto possui diversas funcionalidades importantes, que permitem a classif
 
 ## 🧑‍💻 Como usar a Aplicação
 
+**1. Para acesso a aplicação, copie qualquer um dos links abaixo e cole no navegador:**
+
+```
+http://3.85.170.26/
+```
 
 ## 🚀 Desenvolvimento
 **📂 Estrutura de pastas**
@@ -65,14 +70,16 @@ Este projeto possui diversas funcionalidades importantes, que permitem a classif
 │   │   │   └── prediction_service                # Serviço para carregar o modelo treinado do S3 e realizar predições.
 │   │   ├── main.py                               # Ponto de entrada da aplicação FastAPI
 │   │   ├── requeriments.txt                      # Lista de dependências do Python.
+│   │   ├── docker-compose.yml                    # Configuração do Docker Compose para orquestrar a aplicação.
 │   │   └── Dockerfile                            # Configuração do Docker
-│   ├── Notebooks
-│   │   ├── Treinamento                             
-│   │   │   └── notebooks.ipynb                   # Notebooks Jupyter para desenvolvimento e treinamento dos dados
-│   │   ├── AWS
-│   │   │   └── rds.ipynb                         # Notebook para interação com RDS, incluindo conexão ao banco de dados, execução de consultas SQL e carregamento dos dados.
-│   │   └── requeriments.txt                      # Lista de dependências do Python.
-
+│   ├── data_processing
+│   │   ├── ml_training                             
+│   │   │   └── train_model.ipynb                 # Notebooks Jupyter para desenvolvimento e treinamento dos dados
+│   │   │   └── requeriments.txt                  # Lista de dependências do Python.
+│   │   ├── database_interaction
+│   │   │   └── rds.ipynb                         # Notebook para interação com RDS, incluindo conexão ao banco de dados, busca de arquivo e preparação inicial dos dados
+│   │   │   └── requeriments.txt                  # Lista de dependências do Python.
+└───────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 
  ```
@@ -84,7 +91,7 @@ Este projeto possui diversas funcionalidades importantes, que permitem a classif
 - AWS RDS: Banco de dados relacional para armazenamento dos dados.
 - Docker: Ferramenta de containerização.
 
-## 💻 Execução
+## 💻 Execução local
 
 **Pré-requisitos** : 
 - `Conta na AWS com permissões para SageMaker, S3, e RDS`
@@ -92,6 +99,77 @@ Este projeto possui diversas funcionalidades importantes, que permitem a classif
 - `Python 3.9 ou superior`
 - `Jupyter Notebook`
 
+- **Clone o repositório:**
+```
+git clone https://github.com/Compass-pb-aws-2024-ABRIL/sprints-4-5-pb-aws-abril.git
+cd sprints-4-5-pb-aws-abril
+ ```
+- **Entre na branch:**
+ ```
+git checkout grupo-6
+ ```
+**Passos para executar o treinamento**
+
+- **Entre na pasta data_processing:**
+
+```
+cd data_processing  
+```
+- **Crie o ambiente virtual para o gerenciamento de pacotes e ative, exemplo utilizando conda:**
+
+```
+conda create -p env python=3.10
+conda activate env/\
+```
+-  **Entre na pasta database_interaction:**
+
+```
+cd database_interaction
+```
+- **Instale todos os pacotes listados para uso das bibliotecas:**
+
+```
+pip install -r requirements.txt 
+```
+- **Execute o notebook rds.ipynb**
+
+-  **Após a execução do notebook, vá para a pasta ml_training e Instale todos os pacotes listados para uso das bibliotecas:**
+```
+ml_training
+pip install -r requirements.txt 
+```
+- **Execute o train_model.ipynb**
+
+**Passos para executar a API**
+- **Entre na pasta api:**
+
+```
+cd api  
+```
+- **Crie o ambiente virtual para o gerenciamento de pacotes e ative, exemplo utilizando conda:**
+
+```
+conda create -p env python=3.10
+conda activate env/\
+```
+- **Instale todos os pacotes listados para uso das bibliotecas:**
+
+```
+pip install -r requirements.txt 
+```
+- **Excute a api:**
+
+```
+python main.py 
+```
+- **Ou caso prefira executar pelo docker faça o Build da imagem Docker e execute o container Docker:**
+ ```
+docker-compose buid
+docker-compose up
+ ```
+
+- **Acesse a aplicação localmente:**
+Abra o navegador e vá para http://localhost:8000/docs
 
 ## 🌐 Arquitetura AWS
 A arquitetura AWS deste projeto integra vários serviços da AWS para criar uma solução de machine learning e predição. A utilização de SageMaker, S3, RDS, FastAPI, Docker e EC2 permite que a aplicação seja escalável, eficiente e fácil de gerenciar. Cada componente foi escolhido para otimizar o desempenho e a escalabilidade, garantindo que o sistema possa lidar com grandes volumes de dados e fornecer predições em tempo real.
@@ -101,7 +179,6 @@ A arquitetura AWS deste projeto integra vários serviços da AWS para criar uma 
 ## 🔐 Dificuldades
 
 - Tivemos uma dificuldade relacionada ao treinamento do sagemaker, encontramos um erro ao tentar ajustar o estimador em apenas uma das maquinas locais utilizadas e que gerou um bom tempo para o entedimento do mesmo e a descoberta para a solução.
-
 
 ## 👤 Autores
 - [Gabriel Venancio de Avelar](https://github.com/GabrielAvelarbr) | Email: 99gabrielavelar@gmail.com |
