@@ -1,0 +1,5 @@
+sagemaker
+pandas
+ipykernel
+sqlalchemy
+pymysql
