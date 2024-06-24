@@ -3,3 +3,4 @@ pandas
 ipykernel
 sqlalchemy
 pymysql
+python-dotenv
