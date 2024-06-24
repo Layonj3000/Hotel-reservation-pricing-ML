@@ -15,6 +15,7 @@
 
 Projeto tem como objetivo classificar reservas de hotel com base na faixa de preço por quarto utilizando AWS SageMaker para treinamento de modelo, AWS RDS para armazenamento de dados, e FastAPI para exposição de uma API de predição. O projeto é containerizado utilizando Docker.
 
+
 ## ✅ Funcionalidades
 
 Este projeto possui diversas funcionalidades importantes, que permitem a classificação de reservas de hotel com base em faixas de preço por quarto, utilizando um modelo de machine learning treinado no AWS SageMaker. Aqui estão as principais funcionalidades:
@@ -52,7 +53,7 @@ Este projeto possui diversas funcionalidades importantes, que permitem a classif
 **1. Para acesso a aplicação, copie qualquer um dos links abaixo e cole no navegador:**
 
 ```
-http://3.85.170.26/
+34.225.156.10
 ```
 
 ## 🚀 Desenvolvimento
@@ -69,15 +70,18 @@ http://3.85.170.26/
 │   │   ├── Service                                
 │   │   │   └── prediction_service                # Serviço para carregar o modelo treinado do S3 e realizar predições.
 │   │   ├── main.py                               # Ponto de entrada da aplicação FastAPI
-│   │   ├── requeriments.txt                      # Lista de dependências do Python.
+│   │   ├── requeriments.txt                      # Lista de dependências do Python
+│   │   ├── .env                                  # Exemplo de como colocar variáveis que serão usadas para fazer conexão com a AWS
 │   │   ├── docker-compose.yml                    # Configuração do Docker Compose para orquestrar a aplicação.
 │   │   └── Dockerfile                            # Configuração do Docker
 │   ├── data_processing
 │   │   ├── ml_training                             
+│   │   │   └── .env                              # Exemplo de como colocar variáveis que serão usadas para fazer conexão com a AWS
 │   │   │   └── train_model.ipynb                 # Notebooks Jupyter para desenvolvimento e treinamento dos dados
 │   │   │   └── requeriments.txt                  # Lista de dependências do Python.
 │   │   ├── database_interaction
-│   │   │   └── rds.ipynb                         # Notebook para interação com RDS, incluindo conexão ao banco de dados, busca de arquivo e preparação inicial dos dados
+│   │   │   └── .env                              # Exemplo de como colocar variáveis que serão usadas para fazer conexão com a AWS
+│   │   │   └── data-processing_rds-upload.ipynb  # Notebook para interação com RDS, incluindo conexão ao banco de dados, busca de arquivo e preparação inicial dos dados
 │   │   │   └── requeriments.txt                  # Lista de dependências do Python.
 └───────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -89,12 +93,16 @@ http://3.85.170.26/
 - AWS SageMaker: Serviço da AWS para treinamento e deploy de modelos de machine learning.
 - AWS S3: Armazenamento de dados e modelos.
 - AWS RDS: Banco de dados relacional para armazenamento dos dados.
+- Amazon EC2: Instâncias de computação na nuvem.
+- Amazon ECR: Repositório de imagens Docker.
 - Docker: Ferramenta de containerização.
+- Docker Compose: Orquestração de containers.
+
 
 ## 💻 Execução local
 
 **Pré-requisitos** : 
-- `Conta na AWS com permissões para SageMaker, S3, e RDS`
+- `Conta na AWS com permissões para SageMaker, S3, EC2, ECR e RDS`
 - `Docker`
 - `Python 3.9 ou superior`
 - `Jupyter Notebook`
@@ -131,7 +139,7 @@ cd database_interaction
 ```
 pip install -r requirements.txt 
 ```
-- **Execute o notebook rds.ipynb**
+- **Execute o notebook data-processing_rds-upload.ipynb**
 
 -  **Após a execução do notebook, vá para a pasta ml_training e Instale todos os pacotes listados para uso das bibliotecas:**
 ```
@@ -162,14 +170,15 @@ pip install -r requirements.txt
 ```
 python main.py 
 ```
-- **Ou caso prefira executar pelo docker faça o Build da imagem Docker e execute o container Docker:**
+- **Ou caso prefira executar pelo docker:**
  ```
-docker-compose buid
 docker-compose up
  ```
 
 - **Acesse a aplicação localmente:**
 Abra o navegador e vá para http://localhost:8000/docs
+
+- **Não esqueça de preencher os arquivos .env com o que é solicitado.**
 
 ## 🌐 Arquitetura AWS
 A arquitetura AWS deste projeto integra vários serviços da AWS para criar uma solução de machine learning e predição. A utilização de SageMaker, S3, RDS, FastAPI, Docker e EC2 permite que a aplicação seja escalável, eficiente e fácil de gerenciar. Cada componente foi escolhido para otimizar o desempenho e a escalabilidade, garantindo que o sistema possa lidar com grandes volumes de dados e fornecer predições em tempo real.
