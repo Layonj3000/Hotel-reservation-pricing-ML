@@ -3,7 +3,7 @@
 <p align="center">
  <a href="#-descrição">Descrição</a>  •
  <a href="#-funcionalidades">Funcionalidades</a>  • 
- <a href="#-como-usar-a-aplicação">Como usar</a>  • 
+ <a href="#-acesso-a-aplicação">Acesso a aplicação</a>  • 
  <a href="#-desenvolvimento">Desenvolvimento</a>  • 
  <a href="#-execução-local">Execução</a>  • 
   <a href="#-arquitetura-aws">Arquitetura AWS</a>  •
@@ -48,12 +48,16 @@ Este projeto possui diversas funcionalidades importantes, que permitem a classif
 - /: Endpoint GET que retorna uma mensagem de boas-vindas.
 
 
-## 🧑‍💻 Como usar a Aplicação
+## 🧑‍💻 Acesso a Aplicação
 
-**1. Para acesso a aplicação, copie qualquer um dos links abaixo e cole no navegador:**
-
+**1. Para acesso a aplicação, copie e cole no navegador:**
+- Página inicial:
 ```
-34.225.156.10
+http://34.225.156.10
+```
+- Página para fazer predições:
+```
+http://34.225.156.10/docs
 ```
 
 ## 🚀 Desenvolvimento
@@ -116,7 +120,11 @@ cd sprints-4-5-pb-aws-abril
  ```
 git checkout grupo-6
  ```
-**Passos para executar o treinamento**
+- **Não esqueça de preencher os arquivos .env com o que é solicitado.**
+
+- **Passos para executar o treinamento:**
+
+- **Entre com suas credenciais utilizando o AWS Configure.**
 
 - **Entre na pasta data_processing:**
 
@@ -178,12 +186,11 @@ docker-compose up
 - **Acesse a aplicação localmente:**
 Abra o navegador e vá para http://localhost:8000/docs
 
-- **Não esqueça de preencher os arquivos .env com o que é solicitado.**
 
 ## 🌐 Arquitetura AWS
 A arquitetura AWS deste projeto integra vários serviços da AWS para criar uma solução de machine learning e predição. A utilização de SageMaker, S3, RDS, FastAPI, Docker e EC2 permite que a aplicação seja escalável, eficiente e fácil de gerenciar. Cada componente foi escolhido para otimizar o desempenho e a escalabilidade, garantindo que o sistema possa lidar com grandes volumes de dados e fornecer predições em tempo real.
 
-
+<img src="assets/Architecture.jpg" height="400" >
 
 ## 🔐 Dificuldades
 
