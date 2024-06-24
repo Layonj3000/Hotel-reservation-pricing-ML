@@ -2,6 +2,11 @@ import boto3
 import joblib 
 from io import BytesIO
 import os
+from dotenv import load_dotenv
+
+# Carrega variáveis de ambiente
+load_dotenv()
+
 # Criar uma sessão boto3
 session = boto3.Session(
     aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID"),
@@ -13,7 +18,7 @@ s3_client = session.client('s3')
 
 def get_model(): 
     # Nome do bucket S3 onde o modelo está armazenado
-    bucket_name = 'Nome do Bucket S3'
+    bucket_name = os.getenv("BUCKET_NAME")
     # Chave (caminho) do arquivo do modelo no Bucket S3
     key = 'Caminho para o modelo.joblib no Bucket S3'
     try:
