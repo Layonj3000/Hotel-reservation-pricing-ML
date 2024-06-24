@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from models.prediction_model import HotelReservation
-from service.model_service import get_model
-from service.data_service import get_data
+from services.model_service import get_model
+from services.data_service import get_data
 
 # Criar um roteador APIRouter para definir as rotas da API
 router = APIRouter()
