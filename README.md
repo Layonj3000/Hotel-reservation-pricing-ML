@@ -1,15 +1,4 @@
-# Avaliação Sprint 4-5 -> Programa de Bolsas Compass UOL / AWS - ABRIL/2024
-
-<p align="center">
- <a href="#-descrição">Descrição</a>  •
- <a href="#-funcionalidades">Funcionalidades</a>  • 
- <a href="#-acesso-a-aplicação">Acesso a aplicação</a>  • 
- <a href="#-desenvolvimento">Desenvolvimento</a>  • 
- <a href="#-execução-local">Execução</a>  • 
-  <a href="#-arquitetura-aws">Arquitetura AWS</a>  •
- <a href="#-dificuldades">Dificuldades</a>  •
- <a href="#-autores">Autores</a> 
-</p>
+<h1 align="center">  Sistema de Predição de Faixa de Preço de Quartos de Hotel com AWS SageMaker </h1>
 
 ## 📜 Descrição
 
@@ -196,8 +185,14 @@ A arquitetura AWS deste projeto integra vários serviços da AWS para criar uma 
 
 - Tivemos uma dificuldade relacionada ao treinamento do sagemaker, encontramos um erro ao tentar ajustar o estimador em apenas uma das maquinas locais utilizadas e que gerou um bom tempo para o entedimento do mesmo e a descoberta para a solução.
 
-## 👤 Autores
-- [Gabriel Venancio de Avelar](https://github.com/GabrielAvelarbr) | Email: 99gabrielavelar@gmail.com |
-- [Layon Jose Pedrosa dos Reis](https://github.com/Layonj3000) | Email: layonjp300@gmail.com |
-- [Leonardo Loureiro de Almeida](https://github.com/lloureiro2) | Email: leoloureiro44@gmail.com |
+## 👨‍💻 Autores
+<div>
+  <table style="margin: 0 auto;">
+    <tr>
+      <td><a href="https://github.com/gabrielvavelar"><img loading="lazy" src="https://avatars.githubusercontent.com/u/117688731?v=4" width="115"><br><sub>Gabriel Avelar</sub></a></td>
+      <td><a href="https://github.com/Layonj300"><img loading="lazy" src="https://avatars.githubusercontent.com/u/106559843?v=4" width="115"><br><sub>Layon Reis</sub></a></td>
+      <td><a href="https://github.com/lloureiro2"><img loading="lazy" src="https://avatars.githubusercontent.com/u/48761420?v=4" width="115"><br><sub>Leonardo Loureiro</sub></a></td>
+    </tr>
+  </table>
+</div>
 
